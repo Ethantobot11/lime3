@@ -61,7 +61,7 @@ class CallBack
 @:fileXml('tags="haxe,release"')
 @:noDebug
 #end
-private class CallBackHandler #if !macro implements JNISafety #end
+private class CallBackHandler implements JNISafety
 {
 	public function new():Void {}
 
@@ -70,9 +70,7 @@ private class CallBackHandler #if !macro implements JNISafety #end
 	 *
 	 * @param content The JSON string containing the activity result data.
 	 */
-	#if !macro
 	@:runOnMainThread
-	#end
 	public function onActivityResult(content:String):Void
 	{
 		if (CallBack.onActivityResult != null)
@@ -86,9 +84,7 @@ private class CallBackHandler #if !macro implements JNISafety #end
 	 *
 	 * @param content The JSON string containing the permissions result data.
 	 */
-	#if !macro
 	@:runOnMainThread
-	#end
 	public function onRequestPermissionsResult(content:String):Void
 	{
 		if (CallBack.onRequestPermissionsResult != null)
