@@ -674,10 +674,10 @@ class NativeApplication
 
 @:keep /*private*/ class ApplicationEventInfo
 {
-	public var deltaTime:Float;
+	public var deltaTime:Int;
 	public var type:ApplicationEventType;
 
-	public function new(type:ApplicationEventType = null, deltaTime:Float = 0)
+	public function new(type:ApplicationEventType = null, deltaTime:Int = 0)
 	{
 		this.type = type;
 		this.deltaTime = deltaTime;
@@ -1054,7 +1054,8 @@ class NativeApplication
 	var DEVICE_ORIENTATION_CHANGE = 1;
 }
 
-private class OrientationChangeListener #if (android && !macro) implements JNISafety #end
+#if android
+private class OrientationChangeListener #if !macro implements JNISafety #end
 {
 	private var callback:Int->Void;
 
@@ -1063,7 +1064,7 @@ private class OrientationChangeListener #if (android && !macro) implements JNISa
 		this.callback = callback;
 	}
 
-	#if (android && !macro)
+	#if !macro
 	@:runOnMainThread
 	#end
 	public function onOrientationChanged(orientation:Int):Void
@@ -1071,3 +1072,4 @@ private class OrientationChangeListener #if (android && !macro) implements JNISa
 		callback(orientation);
 	}
 }
+#end
